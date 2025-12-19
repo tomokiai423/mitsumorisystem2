@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== CSS Variables ==================== */
+    :root {
+      --color-primary: #0f172a;
+      --color-secondary: #334155;
+      --color-muted: #64748b;
+      --color-light: #94a3b8;
+      --color-border: #e2e8f0;
+      --color-bg: #ffffff;
+      --color-bg-subtle: #f8fafc;
+      --color-accent: #2563eb;
+      --color-accent-light: #eff6ff;
+      --color-success: #059669;
+      --color-warning: #d97706;
+      --color-warning-bg: #fffbeb;
+      --color-error: #dc2626;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==================== Reset & Base ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--color-bg-subtle);
+      color: var(--color-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    /* ==================== Container ==================== */
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--color-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    /* ==================== Header ==================== */
+    .header {
+      padding: 48px 40px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: var(--color-accent-light);
+      color: var(--color-accent);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 100px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: var(--color-muted);
+      font-weight: 400;
+    }
+
+    /* ==================== Progress ==================== */
+    .progress-section {
+      padding: 24px 40px;
+      background: var(--color-bg-subtle);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-secondary);
+    }
+
+    .progress-count {
+      font-size: 13px;
+      color: var(--color-muted);
+    }
+
+    .progress-bar-track {
+      height: 4px;
+      background: var(--color-border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--color-accent);
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==================== Form Content ==================== */
+    .form-content {
+      padding: 40px;
+    }
+
+    /* ==================== Step ==================== */
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-header {
+      margin-bottom: 32px;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .step-description {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* ==================== Form Elements ==================== */
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-secondary);
+      margin-bottom: 8px;
+    }
+
+    .form-label.required::after {
+      content: '*';
+      color: var(--color-error);
+      margin-left: 4px;
+    }
+
+    .form-hint {
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ==================== Label with Help ==================== */
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .help-trigger {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: var(--color-border);
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-muted);
+      cursor: help;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .help-trigger:hover {
+      background: var(--color-secondary);
+      color: white;
+    }
+
+    .help-trigger:hover .tooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: var(--color-primary);
+      color: white;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.5;
+      white-space: normal;
+      width: 240px;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--color-primary);
+    }
+
+    /* ==================== Input Fields ==================== */
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--color-primary);
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      transition: var(--transition);
+      outline: none;
+    }
+
+    .form-input:hover,
+    .form-select:hover,
+    .form-textarea:hover {
+      border-color: var(--color-light);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--color-light);
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 44px;
+    }
+
+    .form-textarea {
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    /* ==================== Options (Checkbox/Radio) ==================== */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      position: relative;
+    }
+
+    .option-item input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
+      background: var(--color-bg);
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .option-label:hover {
+      border-color: var(--color-light);
+      background: var(--color-bg-subtle);
+    }
+
+    .option-item input:checked + .option-label {
+      border-color: var(--color-accent);
+      background: var(--color-accent-light);
+    }
+
+    .option-indicator {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: 50%;
+      margin-top: 1px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .option-indicator.checkbox {
+      border-radius: 5px;
+    }
+
+    .option-item input:checked + .option-label .option-indicator {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+    }
+
+    .option-item input:checked + .option-label .option-indicator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .option-item input:checked + .option-label .option-indicator.checkbox::after {
+      width: 10px;
+      height: 6px;
+      background: transparent;
+      border-left: 2px solid white;
+      border-bottom: 2px solid white;
+      border-radius: 0;
+      transform: translate(-50%, -60%) rotate(-45deg);
+    }
+
+    .option-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .option-title {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+    }
+
+    .option-desc {
+      font-size: 13px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+
+    .option-item input:checked + .option-label .option-title {
+      color: var(--color-accent);
+    }
+
+    /* ==================== Warning Box ==================== */
+    .warning-box {
+      background: var(--color-warning-bg);
+      border: 1px solid #fcd34d;
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+
+    .warning-box-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #92400e;
+      margin-bottom: 6px;
+    }
+
+    .warning-box-text {
+      font-size: 13px;
+      color: #a16207;
+      line-height: 1.6;
+    }
+
+    /* ==================== NG Filter Style ==================== */
+    .ng-option .option-label {
+      background: var(--color-warning-bg);
+      border-color: #fcd34d;
+    }
+
+    .ng-option .option-label:hover {
+      background: #fef3c7;
+      border-color: #f59e0b;
+    }
+
+    .ng-option input:checked + .option-label {
+      background: #fef3c7;
+      border-color: #f59e0b;
+    }
+
+    .ng-option input:checked + .option-label .option-indicator {
+      border-color: #f59e0b;
+      background: #f59e0b;
+    }
+
+    .ng-option input:checked + .option-label .option-title {
+      color: #92400e;
+    }
+
+    /* ==================== Section Divider ==================== */
+    .section-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 32px 0;
+      border: none;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    /* ==================== Character Counter ==================== */
+    .char-counter {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--color-muted);
+      margin-top: 10px;
+    }
+
+    .char-counter.warning {
+      color: var(--color-error);
+    }
+
+    .char-counter.success {
+      color: var(--color-success);
+    }
+
+    .char-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ==================== Buttons ==================== */
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: inherit;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: var(--color-bg-subtle);
+      color: var(--color-secondary);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--color-border);
+    }
+
+    .btn-primary {
+      flex: 1;
+      background: var(--color-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+    }
+
+    .btn-success {
+      flex: 1;
+      background: var(--color-success);
+      color: white;
+    }
+
+    .btn-success:hover:not(:disabled) {
+      background: #047857;
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-icon {
+      font-size: 18px;
+    }
+
+    /* ==================== Result Screens ==================== */
+    .screen-center {
+      text-align: center;
+      padding: 60px 40px;
+    }
+
+    .screen-icon {
+      font-size: 56px;
+      margin-bottom: 24px;
+      line-height: 1;
+    }
+
+    .screen-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .screen-text {
+      font-size: 14px;
+      color: var(--color-muted);
+      line-height: 1.8;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .rejection-message {
+      background: var(--color-bg-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin: 24px 0;
+      text-align: left;
+      font-size: 14px;
+      color: var(--color-secondary);
+      line-height: 1.8;
+    }
+
+    .rejection-screen,
+    .loading-screen,
+    .result-screen {
+      display: none;
+    }
+
+    /* ==================== Loading ==================== */
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==================== Responsive ==================== */
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      .header {
+        padding: 36px 24px 32px;
+      }
+
+      .header h1 {
+        font-size: 20px;
+      }
+
+      .progress-section {
+        padding: 20px 24px;
+      }
+
+      .form-content {
+        padding: 28px 24px;
+      }
+
+      .option-label {
+        padding: 14px 16px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn-secondary {
+        order: 2;
+      }
+
+      .tooltip {
+        width: 200px;
+        left: 0;
+        transform: translateX(0) translateY(4px);
+      }
+
+      .tooltip::after {
+        left: 20px;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ==================== Header ==================== -->
+    <header class="header">
+      <span class="header-badge">無料相談</span>
+      <h1>システム開発 お問い合わせ</h1>
+      <p>Google Apps Script による業務効率化を支援します</p>
+    </header>
+
+    <!-- ==================== Progress ==================== -->
+    <div class="progress-section" id="progressSection">
+      <div class="progress-header">
+        <span class="progress-label" id="progressLabel">確認事項</span>
+        <span class="progress-count"><span id="currentStep">1</span> / 5</span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressBar" style="width: 20%;"></div>
+      </div>
+    </div>
+
+    <!-- ==================== Form ==================== -->
+    <div class="form-content">
+      <form id="estimateForm">
+
+        <!-- ==================== Step 1 ==================== -->
+        <div class="step active" data-step="1">
+          <div class="step-header">
+            <h2 class="step-title">対応可能かの確認</h2>
+            <p class="step-description">まず、ご要望が当サービスで対応できるか確認させてください。</p>
+          </div>
+
+          <div class="warning-box">
+            <div class="warning-box-title">
+              <span>⚠️</span>
+              <span>ご確認ください</span>
+            </div>
+            <p class="warning-box-text">以下に該当する場合、技術的な制約により対応が難しくなります。該当するものがあればチェックしてください。</p>
+          </div>
+
+          <div class="form-group">
+            <div class="options-list">
+              <div class="option-item ng-option">
+                <input type="checkbox" name="ngFilter" value="native_app" id="ng1">
+                <label class="option-label" for="ng1">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">スマホアプリが必要</span>
+                    <span class="option-desc">App Store や Google Play からダウンロードするアプリ</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item ng-option">
+                <input type="checkbox" name="ngFilter" value="public_system" id="ng2">
+                <label class="option-label" for="ng2">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">一般公開するシステム</span>
+                    <span class="option-desc">不特定多数が利用する Web サービスやポータルサイト</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item ng-option">
+                <input type="checkbox" name="ngFilter" value="existing_system" id="ng3">
+                <label class="option-label" for="ng3">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">既存システムの改修</span>
+                    <span class="option-desc">kintone、Salesforce、freee 等のカスタマイズ</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item ng-option">
+                <input type="checkbox" name="ngFilter" value="realtime_sync" id="ng4">
+                <label class="option-label" for="ng4">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">リアルタイム同期が必須</span>
+                    <span class="option-desc">チャット、在庫の即時反映など瞬時の更新が必要</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item ng-option">
+                <input type="checkbox" name="ngFilter" value="external_users" id="ng5">
+                <label class="option-label" for="ng5">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">Google アカウント以外の方も利用</span>
+                    <span class="option-desc">Google アカウントを持たない外部の方が操作する場合</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <p class="form-hint">💡 該当するものがなければ、そのまま次へお進みください</p>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              次へ進む
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ==================== Step 2 ==================== -->
+        <div class="step" data-step="2">
+          <div class="step-header">
+            <h2 class="step-title">お客様情報</h2>
+            <p class="step-description">ご連絡先と会社情報をお聞かせください。</p>
+          </div>
+
+          <div class="section-label">基本情報</div>
+
+          <div class="form-group">
+            <label class="form-label required">会社名・屋号</label>
+            <input type="text" class="form-input" id="companyName" required placeholder="例：株式会社〇〇">
+            <p class="form-hint">個人事業主の方は屋号、なければお名前でOK</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">ご担当者名</label>
+            <input type="text" class="form-input" id="contactName" required placeholder="例：山田 太郎">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">メールアドレス</label>
+            <input type="email" class="form-input" id="email" required placeholder="例：yamada@example.com">
+            <p class="form-hint">判定結果をこちらにお送りします</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">電話番号（任意）</label>
+            <input type="tel" class="form-input" id="phone" placeholder="例：03-1234-5678">
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-label">会社情報</div>
+
+          <div class="form-group">
+            <label class="form-label required">事業形態</label>
+            <select class="form-select" id="businessType" required>
+              <option value="">選択してください</option>
+              <option value="個人事業主">個人事業主</option>
+              <option value="法人">法人</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">年商（売上高）</label>
+              <span class="help-trigger">?
+                <span class="tooltip">直近1年間の売上高の目安です。だいたいで構いません。</span>
+              </span>
+            </div>
+            <select class="form-select" id="annualRevenue" required>
+              <option value="">選択してください</option>
+              <option value="500万円未満">500万円未満</option>
+              <option value="500万〜1,000万円">500万〜1,000万円</option>
+              <option value="1,000万〜1,500万円">1,000万〜1,500万円</option>
+              <option value="1,500万〜3,000万円">1,500万〜3,000万円</option>
+              <option value="3,000万〜5,000万円">3,000万〜5,000万円</option>
+              <option value="5,000万〜1億円">5,000万〜1億円</option>
+              <option value="1億〜3億円">1億〜3億円</option>
+              <option value="3億円以上">3億円以上</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">決算・確定申告</label>
+              <span class="help-trigger">?
+                <span class="tooltip">直近の決算・確定申告が完了しているかどうかです。</span>
+              </span>
+            </div>
+            <select class="form-select" id="taxFiled" required>
+              <option value="">選択してください</option>
+              <option value="はい">完了している</option>
+              <option value="いいえ">まだ / 創業1年未満</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">従業員数（パート・アルバイト含む）</label>
+            <input type="number" class="form-input" id="employeeCount" min="0" required placeholder="例：5">
+            <p class="form-hint">ご本人のみの場合は「1」</p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep()">次へ進む →</button>
+          </div>
+        </div>
+
+        <!-- ==================== Step 3 ==================== -->
+        <div class="step" data-step="3">
+          <div class="step-header">
+            <h2 class="step-title">作りたいシステムの種類</h2>
+            <p class="step-description">近いものを選んでください（複数可）。ぴったりのものがなくても大丈夫です。</p>
+          </div>
+
+          <div class="form-group">
+            <div class="options-list">
+              <div class="option-item">
+                <input type="checkbox" name="category" value="データ集計・転記の自動化" id="cat1">
+                <label class="option-label" for="cat1">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">データ集計・転記の自動化</span>
+                    <span class="option-desc">複数のシートやファイルからデータを集めて自動でレポート作成</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="フォーム・申請システム" id="cat2">
+                <label class="option-label" for="cat2">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">フォーム・申請システム</span>
+                    <span class="option-desc">アンケートや申請書を受け付けてデータを自動整理</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="承認ワークフロー" id="cat3">
+                <label class="option-label" for="cat3">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">承認ワークフロー</span>
+                    <span class="option-desc">申請→上長承認→完了の流れを自動化</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="通知・リマインド" id="cat4">
+                <label class="option-label" for="cat4">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">通知・リマインド</span>
+                    <span class="option-desc">期限前のお知らせ、定期報告メールの自動送信</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="ダッシュボード・レポート" id="cat5">
+                <label class="option-label" for="cat5">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">ダッシュボード・レポート</span>
+                    <span class="option-desc">売上やKPIをグラフで見える化、PDF出力</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="顧客・案件管理" id="cat6">
+                <label class="option-label" for="cat6">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">顧客・案件管理</span>
+                    <span class="option-desc">お客様情報や案件の進捗を一元管理</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="外部サービス連携" id="cat7">
+                <label class="option-label" for="cat7">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">外部サービス連携</span>
+                    <span class="option-desc">Slack、Chatwork、LINE、会計ソフトなどとの連携</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="ドキュメント生成" id="cat8">
+                <label class="option-label" for="cat8">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">ドキュメント生成</span>
+                    <span class="option-desc">見積書、請求書、契約書などの自動作成</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="checkbox" name="category" value="その他" id="cat9">
+                <label class="option-label" for="cat9">
+                  <span class="option-indicator checkbox"></span>
+                  <div class="option-content">
+                    <span class="option-title">その他・わからない</span>
+                    <span class="option-desc">上記に当てはまらない、または判断がつかない</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep()">次へ進む →</button>
+          </div>
+        </div>
+
+        <!-- ==================== Step 4 ==================== -->
+        <div class="step" data-step="4">
+          <div class="step-header">
+            <h2 class="step-title">システムの規模感</h2>
+            <p class="step-description">開発の難易度を判断するため、規模をお聞かせください。</p>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">システムを使う人</label>
+              <span class="help-trigger">?
+                <span class="tooltip">このシステムを実際に操作する人の範囲です。</span>
+              </span>
+            </div>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="userType" value="社内のみ" id="user1" required>
+                <label class="option-label" for="user1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">社内のみ</span>
+                    <span class="option-desc">自社の社員・スタッフだけが使う</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="userType" value="社外（取引先等）も利用" id="user2">
+                <label class="option-label" for="user2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">社外も利用</span>
+                    <span class="option-desc">取引先やお客様も操作する</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">同時に使う人数</label>
+              <span class="help-trigger">?
+                <span class="tooltip">同じ時間帯に同時にシステムを操作する可能性のある人数です。</span>
+              </span>
+            </div>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="concurrentUsers" value="5人以下" id="concurrent1" required>
+                <label class="option-label" for="concurrent1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content"><span class="option-title">5人以下</span></div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="concurrentUsers" value="10人程度" id="concurrent2">
+                <label class="option-label" for="concurrent2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content"><span class="option-title">10人程度</span></div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="concurrentUsers" value="数十人以上" id="concurrent3">
+                <label class="option-label" for="concurrent3">
+                  <span class="option-indicator"></span>
+                  <div class="option-content"><span class="option-title">数十人以上</span></div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">扱うデータの量</label>
+              <span class="help-trigger">?
+                <span class="tooltip">1行＝1件のデータと考えてください。</span>
+              </span>
+            </div>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="dataVolume" value="1000行以下" id="data1" required>
+                <label class="option-label" for="data1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">少なめ（1,000件以下）</span>
+                    <span class="option-desc">月数十件の受注、社員数十名の勤怠など</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="dataVolume" value="1万行以下" id="data2">
+                <label class="option-label" for="data2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">普通（1,000〜10,000件）</span>
+                    <span class="option-desc">年間の売上データ、数年分の顧客リストなど</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="dataVolume" value="1万行以上" id="data3">
+                <label class="option-label" for="data3">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">多め（10,000件以上）</span>
+                    <span class="option-desc">大量のログ、過去何年分もの履歴など</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">処理のタイミング</label>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="processTiming" value="手動実行" id="timing1" required>
+                <label class="option-label" for="timing1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">手動で実行</span>
+                    <span class="option-desc">ボタンを押したときだけ動く</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="processTiming" value="定期バッチ" id="timing2">
+                <label class="option-label" for="timing2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">定期的に自動実行</span>
+                    <span class="option-desc">毎日朝9時、毎週月曜など決まった時間に動く</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="processTiming" value="リアルタイム必須" id="timing3">
+                <label class="option-label" for="timing3">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">リアルタイム（即時）</span>
+                    <span class="option-desc">データ入力後すぐに反映が必要</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label class="form-label required">既存データの移行</label>
+              <span class="help-trigger">?
+                <span class="tooltip">今お使いのExcelやシステムからデータを引き継ぐ必要があるかどうかです。</span>
+              </span>
+            </div>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="dataMigration" value="なし" id="migration1" required>
+                <label class="option-label" for="migration1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content"><span class="option-title">なし（新規でOK）</span></div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="dataMigration" value="あり（少量）" id="migration2">
+                <label class="option-label" for="migration2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">あり（少量）</span>
+                    <span class="option-desc">Excelファイル数個程度</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="dataMigration" value="あり（大量）" id="migration3">
+                <label class="option-label" for="migration3">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">あり（大量）</span>
+                    <span class="option-desc">複数システムからの移行、長期間の履歴など</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">見た目のこだわり</label>
+            <div class="options-list">
+              <div class="option-item">
+                <input type="radio" name="designRequirement" value="最低限でOK" id="design1" required>
+                <label class="option-label" for="design1">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">最低限でOK</span>
+                    <span class="option-desc">使えれば見た目は気にしない</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="designRequirement" value="ある程度きれいに" id="design2">
+                <label class="option-label" for="design2">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">ある程度きれいに</span>
+                    <span class="option-desc">見やすく整理されていればOK</span>
+                  </div>
+                </label>
+              </div>
+              <div class="option-item">
+                <input type="radio" name="designRequirement" value="こだわりたい" id="design3">
+                <label class="option-label" for="design3">
+                  <span class="option-indicator"></span>
+                  <div class="option-content">
+                    <span class="option-title">こだわりたい</span>
+                    <span class="option-desc">社外に見せるのでデザインも重視</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep()">次へ進む →</button>
+          </div>
+        </div>
+
+        <!-- ==================== Step 5 ==================== -->
+        <div class="step" data-step="5">
+          <div class="step-header">
+            <h2 class="step-title">詳しくお聞かせください</h2>
+            <p class="step-description">作りたいシステムについて詳しく教えてください。具体的なほど正確に判定できます。</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label required">作りたいシステムの詳細（200文字以上）</label>
+            <textarea class="form-textarea" id="description" required placeholder="例えば…
+・今どんな作業をしていて、何が大変か
+・システムで何を実現したいか
+・こんな画面がほしい、こんな機能がほしい
+・参考にしたいサービスや、イメージに近いもの" oninput="updateCharCounter()"></textarea>
+            <div class="char-counter" id="charCounter">
+              <span class="char-dot"></span>
+              <span>0 / 200文字</span>
+            </div>
+          </div>
+
+          <p class="form-hint">💡 詳しく書いていただくほど、より正確な判定ができます</p>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+            <button type="submit" class="btn btn-success" id="submitBtn" disabled>送信する</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- ==================== Rejection Screen ==================== -->
+      <div class="rejection-screen screen-center" id="rejectionScreen">
+        <div class="screen-icon">🙇</div>
+        <h2 class="screen-title">申し訳ございません</h2>
+        <div class="rejection-message">
+          ご選択いただいた内容は、当サービスの対応範囲外となっております。<br><br>
+          当サービスは <strong>Google Apps Script</strong> を活用した業務効率化ツールの開発に特化しており、スマホアプリの開発や既存サービスのカスタマイズには対応しておりません。<br><br>
+          ご期待に沿えず恐れ入りますが、ご理解いただけますと幸いです。
+        </div>
+        <button class="btn btn-secondary" onclick="location.reload()">最初に戻る</button>
+      </div>
+
+      <!-- ==================== Loading Screen ==================== -->
+      <div class="loading-screen screen-center" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <p class="screen-text">AIが内容を分析しています…<br>少々お待ちください</p>
+      </div>
+
+      <!-- ==================== Result Screen ==================== -->
+      <div class="result-screen screen-center" id="resultScreen">
+        <div class="screen-icon" id="resultIcon"></div>
+        <h2 class="screen-title" id="resultTitle"></h2>
+        <p class="screen-text" id="resultMessage"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+    const MIN_CHAR_COUNT = 200;
+
+    const stepLabels = ['確認事項', 'お客様情報', 'カテゴリ', '規模感', '詳細入力'];
+
+    function updateProgress() {
+      const progress = (currentStep / totalSteps) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('currentStep').textContent = currentStep;
+      document.getElementById('progressLabel').textContent = stepLabels[currentStep - 1];
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      const targetStep = document.querySelector(`.step[data-step="${step}"]`);
+      if (targetStep) targetStep.classList.add('active');
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(step) {
+      const currentStepEl = document.querySelector(`.step[data-step="${step}"]`);
+      const requiredInputs = currentStepEl.querySelectorAll('[required]');
+
+      for (const input of requiredInputs) {
+        if (input.type === 'radio') {
+          const radioGroup = currentStepEl.querySelectorAll(`[name="${input.name}"]`);
+          const isChecked = Array.from(radioGroup).some(r => r.checked);
+          if (!isChecked) {
+            alert('必須項目を選択してください');
+            return false;
+          }
+        } else if (input.tagName === 'SELECT') {
+          if (!input.value) {
+            alert('必須項目を選択してください');
+            input.focus();
+            return false;
+          }
+        } else if (!input.value.trim()) {
+          alert('必須項目を入力してください');
+          input.focus();
+          return false;
+        }
+      }
+
+      if (step === 2) {
+        const email = document.getElementById('email').value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert('正しいメールアドレスを入力してください');
+          document.getElementById('email').focus();
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function checkNGFilter() {
+      return document.querySelectorAll('input[name="ngFilter"]:checked').length > 0;
+    }
+
+    function showRejectionScreen() {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('progressSection').style.display = 'none';
+      document.getElementById('rejectionScreen').style.display = 'block';
+    }
+
+    function nextStep() {
+      if (!validateStep(currentStep)) return;
+      if (currentStep === 1 && checkNGFilter()) {
+        showRejectionScreen();
+        return;
+      }
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    function updateCharCounter() {
+      const description = document.getElementById('description');
+      const counter = document.getElementById('charCounter');
+      const submitBtn = document.getElementById('submitBtn');
+      const charCount = description.value.length;
+
+      counter.innerHTML = `<span class="char-dot"></span><span>${charCount} / ${MIN_CHAR_COUNT}文字</span>`;
+
+      if (charCount >= MIN_CHAR_COUNT) {
+        counter.classList.remove('warning');
+        counter.classList.add('success');
+        submitBtn.disabled = false;
+      } else {
+        counter.classList.remove('success');
+        counter.classList.add('warning');
+        submitBtn.disabled = true;
+      }
+    }
+
+    function getFormData() {
+      const categories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+      const ngFilters = Array.from(document.querySelectorAll('input[name="ngFilter"]:checked')).map(cb => cb.value);
+      const getRadioValue = (name) => {
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        return checked ? checked.value : '';
+      };
+
+      return {
+        companyName: document.getElementById('companyName').value,
+        contactName: document.getElementById('contactName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        businessType: document.getElementById('businessType').value,
+        annualRevenue: document.getElementById('annualRevenue').value,
+        taxFiled: document.getElementById('taxFiled').value,
+        employeeCount: document.getElementById('employeeCount').value,
+        categories: categories,
+        userType: getRadioValue('userType'),
+        concurrentUsers: getRadioValue('concurrentUsers'),
+        dataVolume: getRadioValue('dataVolume'),
+        processTiming: getRadioValue('processTiming'),
+        dataMigration: getRadioValue('dataMigration'),
+        designRequirement: getRadioValue('designRequirement'),
+        ngFilters: ngFilters,
+        description: document.getElementById('description').value
+      };
+    }
+
+    function showResult(result) {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+
+      const iconEl = document.getElementById('resultIcon');
+      const titleEl = document.getElementById('resultTitle');
+      const messageEl = document.getElementById('resultMessage');
+
+      if (result.judgment === 'OK') {
+        iconEl.textContent = '✅';
+        titleEl.textContent = '無料対応が可能です';
+        messageEl.innerHTML = 'お問い合わせありがとうございます。<br>詳細確認のため、メールをお送りしました。<br>ご確認をお願いいたします。';
+      } else if (result.judgment === 'BORDERLINE') {
+        iconEl.textContent = '🤔';
+        titleEl.textContent = 'ヒアリングが必要です';
+        messageEl.innerHTML = 'お問い合わせありがとうございます。<br>機能によっては無料対応が可能です。<br>詳細はメールをご確認ください。';
+      } else if (result.judgment.includes('技術制約')) {
+        iconEl.textContent = '⚠️';
+        titleEl.textContent = '対応範囲外となります';
+        messageEl.innerHTML = '申し訳ございません。<br>ご要望は当サービスの対応範囲外です。<br>詳細はメールをご確認ください。';
+      } else {
+        iconEl.textContent = '📋';
+        titleEl.textContent = '有料プランのご案内';
+        messageEl.innerHTML = 'お問い合わせありがとうございます。<br>ご要望は無料対応の範囲を超えております。<br>詳細はメールをご確認ください。';
+      }
+    }
+
+    function showError(error) {
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'block';
+      document.getElementById('resultIcon').textContent = '❌';
+      document.getElementById('resultTitle').textContent = 'エラーが発生しました';
+      document.getElementById('resultMessage').innerHTML = '申し訳ございません。<br>しばらく経ってから再度お試しください。';
+    }
+
+    document.getElementById('estimateForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!validateStep(currentStep)) return;
+
+      const description = document.getElementById('description').value;
+      if (description.length < MIN_CHAR_COUNT) {
+        alert(`詳細説明は${MIN_CHAR_COUNT}文字以上入力してください。`);
+        return;
+      }
+
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('progressSection').style.display = 'none';
+      document.getElementById('loadingScreen').style.display = 'block';
+
+      google.script.run
+        .withSuccessHandler(showResult)
+        .withFailureHandler(showError)
+        .processFormSubmission(getFormData());
+    });
+
+    updateCharCounter();
+    updateProgress();
+  </script>
+</body>
+</html>

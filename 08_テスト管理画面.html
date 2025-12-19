@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>管理画面テスト</h1>
+  <button onclick="loadData()">データを取得</button>
+  <div id="result" style="margin-top: 20px; padding: 20px; background: #f0f0f0;"></div>
+
+  <script>
+    function loadData() {
+      document.getElementById('result').innerHTML = '読み込み中...';
+
+      google.script.run
+        .withSuccessHandler(function(data) {
+          if (data === null) {
+            document.getElementById('result').innerHTML = '<b>結果: null が返されました</b>';
+          } else if (data.length === 0) {
+            document.getElementById('result').innerHTML = '<b>結果: 空の配列が返されました</b>';
+          } else {
+            var html = '<b>取得成功！ ' + data.length + '件のデータ</b><br><br>';
+            for (var i = 0; i < data.length; i++) {
+              html += (i + 1) + '. ' + (data[i]['会社名'] || '会社名なし') + ' - ' + (data[i]['判定結果'] || '判定なし') + '<br>';
+            }
+            document.getElementById('result').innerHTML = html;
+          }
+        })
+        .withFailureHandler(function(error) {
+          document.getElementById('result').innerHTML = '<b style="color:red;">エラー: ' + error + '</b>';
+        })
+        .getInquiries();
+    }
+  </script>
+</body>
+</html>

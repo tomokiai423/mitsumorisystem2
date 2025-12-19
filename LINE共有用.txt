@@ -1,0 +1,66 @@
+【GAS案件 自動見積もりシステム】
+
+━━━━━━━━━━━━━━━━━━
+📋 URL一覧
+━━━━━━━━━━━━━━━━━━
+
+▼ お問い合わせフォーム
+https://script.google.com/macros/s/AKfycbyx1WKEXs0e4sSjpNoOACqWRIeX9EWZDtJgumRGjx4q27hiaM90OxcDf0xCPJ4LU57p/exec
+
+▼ 管理画面
+https://script.google.com/macros/s/AKfycbyx1WKEXs0e4sSjpNoOACqWRIeX9EWZDtJgumRGjx4q27hiaM90OxcDf0xCPJ4LU57p/exec?page=admin
+
+▼ スプレッドシート
+https://docs.google.com/spreadsheets/d/1A0QgC425A1yQDoZyg8ieB7sNPsyksH7b1uXrJeAJZL0/edit
+
+━━━━━━━━━━━━━━━━━━
+🔄 システムの流れ
+━━━━━━━━━━━━━━━━━━
+
+①お客様がフォーム送信
+　↓
+②AIが自動で工数判定
+　↓
+③判定結果
+　・OK → 無料対応可能
+　・BORDERLINE → 要ヒアリング
+　・NG → 対応不可
+　↓
+④自動処理
+　・スプレッドシートに記録
+　・お客様にメール送信
+　・Chatworkに通知
+
+━━━━━━━━━━━━━━━━━━
+⚙️ 設定変更
+━━━━━━━━━━━━━━━━━━
+
+スプレッドシートの「設定」シートで変更可能
+
+・テストモード
+　TRUE → メール送信しない
+　FALSE → メール送信する（本番）
+
+・日程調整URL
+　メールに記載されるリンク
+
+━━━━━━━━━━━━━━━━━━
+📱 管理画面の使い方
+━━━━━━━━━━━━━━━━━━
+
+・問い合わせ一覧を確認
+・ステータスを変更
+　（未対応/対応中/完了/見送り）
+・判定結果でフィルター
+
+━━━━━━━━━━━━━━━━━━
+❓ 困ったとき
+━━━━━━━━━━━━━━━━━━
+
+・メールが届かない
+　→ テストモードがTRUEかも
+
+・通知が届かない
+　→ NGの場合は通知されません
+
+・詳しくは「ガイドライン.txt」参照
