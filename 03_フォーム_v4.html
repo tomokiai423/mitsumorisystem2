@@ -314,6 +314,25 @@
       padding-right: 44px;
     }
 
+    /* ==================== Input with Unit ==================== */
+    .input-with-unit {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .input-with-unit .form-input {
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .input-unit {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-secondary);
+      white-space: nowrap;
+    }
+
     .form-textarea {
       min-height: 160px;
       resize: vertical;
@@ -845,17 +864,10 @@
                 <span class="tooltip">直近1年間の売上高の目安です。だいたいで構いません。</span>
               </span>
             </div>
-            <select class="form-select" id="annualRevenue" required>
-              <option value="">選択してください</option>
-              <option value="500万円未満">500万円未満</option>
-              <option value="500万〜1,000万円">500万〜1,000万円</option>
-              <option value="1,000万〜1,500万円">1,000万〜1,500万円</option>
-              <option value="1,500万〜3,000万円">1,500万〜3,000万円</option>
-              <option value="3,000万〜5,000万円">3,000万〜5,000万円</option>
-              <option value="5,000万〜1億円">5,000万〜1億円</option>
-              <option value="1億〜3億円">1億〜3億円</option>
-              <option value="3億円以上">3億円以上</option>
-            </select>
+            <div class="input-with-unit">
+              <input type="text" class="form-input" id="annualRevenue" required placeholder="例：1000">
+              <span class="input-unit">万円</span>
+            </div>
           </div>
 
           <div class="form-group">
@@ -1223,23 +1235,21 @@
         <div class="step" data-step="5">
           <div class="step-header">
             <h2 class="step-title">詳しくお聞かせください</h2>
-            <p class="step-description">作りたいシステムについて詳しく教えてください。具体的なほど正確に判定できます。</p>
+            <p class="step-description">作りたいシステムについて詳しく教えてください。</p>
           </div>
 
           <div class="form-group">
-            <label class="form-label required">作りたいシステムの詳細（200文字以上）</label>
-            <textarea class="form-textarea" id="description" required placeholder="例えば…
-・今どんな作業をしていて、何が大変か
-・システムで何を実現したいか
-・こんな画面がほしい、こんな機能がほしい
-・参考にしたいサービスや、イメージに近いもの" oninput="updateCharCounter()"></textarea>
+            <label class="form-label required">自由にご要望をお聞かせください（200文字以上）</label>
+            <p class="form-hint" style="margin-top: 0; margin-bottom: 12px;">具体的なほど正確に判定できます。箇条書きでも文章でもOKです。</p>
+            <textarea class="form-textarea" id="description" required placeholder="どんなシステムを作りたいですか？
+現在の課題、実現したいこと、イメージなど
+思いつくままにお書きください。
+（200文字以上）" oninput="updateCharCounter()"></textarea>
             <div class="char-counter" id="charCounter">
               <span class="char-dot"></span>
               <span>0 / 200文字</span>
             </div>
           </div>
-
-          <p class="form-hint">💡 詳しく書いていただくほど、より正確な判定ができます</p>
 
           <div class="form-actions">
             <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
@@ -1257,7 +1267,7 @@
           当サービスは <strong>Google Apps Script</strong> を活用した業務効率化ツールの開発に特化しており、スマホアプリの開発や既存サービスのカスタマイズには対応しておりません。<br><br>
           ご期待に沿えず恐れ入りますが、ご理解いただけますと幸いです。
         </div>
-        <button class="btn btn-secondary" onclick="location.reload()">最初に戻る</button>
+        <button class="btn btn-secondary" onclick="resetForm()">最初に戻る</button>
       </div>
 
       <!-- ==================== Loading Screen ==================== -->
@@ -1343,6 +1353,26 @@
       document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
       document.getElementById('progressSection').style.display = 'none';
       document.getElementById('rejectionScreen').style.display = 'block';
+    }
+
+    function resetForm() {
+      // フォームをリセット
+      document.getElementById('estimateForm').reset();
+
+      // 各画面を非表示にする
+      document.getElementById('rejectionScreen').style.display = 'none';
+      document.getElementById('loadingScreen').style.display = 'none';
+      document.getElementById('resultScreen').style.display = 'none';
+
+      // プログレスバーを再表示
+      document.getElementById('progressSection').style.display = 'block';
+
+      // ステップ1に戻る
+      currentStep = 1;
+      showStep(1);
+
+      // 文字カウンターをリセット
+      updateCharCounter();
     }
 
     function nextStep() {
